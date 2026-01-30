@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bui Anh Duc | Backend Developer Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loader">
+        <div class="loader-content">
+            <div class="loader-circle"></div>
+            <h2>Loading...</h2>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-logo">
+            <span class="logo-text">Portfolio</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home" class="nav-link active">Home</a></li>
+            <li><a href="#about" class="nav-link">About</a></li>
+            <li><a href="#skills" class="nav-link">Skills</a></li>
+            <li><a href="#projects" class="nav-link">Projects</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="particles" id="particles"></div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <p class="greeting animate-text">Hello, I'm</p>
+                <h1 class="name glitch" data-text="Bui Anh Duc">Bui Anh Duc</h1>   
+                <div class="typing-container">
+                    <span class="static-text">I'm a </span>
+                    <span class="typed-text"></span>
+                    <span class="cursor-typing">|</span>
+                </div>
+                <p class="description animate-text">
+                    After two years of exploration and learning at PTIT, I have discovered a strong passion for system architecture. 
+                    Building a solid Backend foundation to become a future Cloud Engineer.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary magnetic">
+                        <span>Contact Me</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="#projects" class="btn btn-secondary magnetic">
+                        <span>View Projects</span>
+                    </a>
+                </div>
+                <div class="social-links">
+                    <a href="https://github.com/anhducwszxje" class="social-link magnetic" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/%C4%91%E1%BB%A9c-b%C3%B9i-anh-85a3a63a9/" class="social-link magnetic" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.facebook.com/anhducwszxje/" class="social-link magnetic" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="mailto:buianhducnd96@gmail.com" class="social-link magnetic"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="image-container">
+                    <div class="rotating-border"></div>
+                    <div class="profile-img">
+                        <img src="avatar.jpg" alt="Bui Anh Duc" class="avatar-img">
+                    </div>
+                    <div class="floating-shapes">
+                        <div class="shape shape-1"></div>
+                        <div class="shape shape-2"></div>
+                        <div class="shape shape-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="mouse">
+                <div class="wheel"></div>
+            </div>
+            <span>Scroll Down</span>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">
+                About Me
+                <div class="title-line"></div>
+            </h2>
+            <div class="about-content">
+                <div class="about-image reveal-left">
+                    <div class="image-frame">
+                        <div class="frame-border"></div>
+                        <div class="about-img">
+                            <img src="avatar.jpg" alt="Bui Anh Duc" class="about-avatar-img">
+                        </div>
+                    </div>
+                </div>
+                <div class="about-text reveal-right">
+                    <h3>My Story</h3>
+                    <p>
+                        After two years of exploration and learning at PTIT, I have discovered a strong passion for 
+                        system architecture. With a clear career path of building a solid Backend foundation to become 
+                        a future Cloud Engineer, I have actively cultivated my skills through both academic coursework 
+                        and intensive self-study.
+                    </p>
+                    <p>
+                        I'm highly self-motivated with a strong passion for technology, constantly updating knowledge 
+                        on System Architecture and Cloud Computing. I possess a high spirit of self-study, enabling 
+                        quick adaptation to new technologies and frameworks.
+                    </p>
+                    <div class="info-cards">
+                        <div class="info-card">
+                            <div class="card-icon"><i class="fas fa-graduation-cap"></i></div>
+                            <div class="card-content">
+                                <h4>Education</h4>
+                                <p>PTIT - GPA: 4.0/4.0</p>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="card-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <div class="card-content">
+                                <h4>Location</h4>
+                                <p>Hanoi, Vietnam</p>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <div class="card-icon"><i class="fas fa-trophy"></i></div>
+                            <div class="card-content">
+                                <h4>Achievement</h4>
+                                <p>ICPC PTIT 3rd Prize</p>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="btn btn-primary magnetic">
+                        <span>Download CV</span>
+                        <i class="fas fa-download"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2 class="section-title">
+                Skills
+                <div class="title-line"></div>
+            </h2>
+            <div class="skills-content">
+                <div class="skills-categories">
+                    <div class="skill-category reveal-up">
+                        <div class="category-header">
+                            <i class="fas fa-code"></i>
+                            <h3>Programming</h3>
+                        </div>
+                        <div class="skill-items">
+                            <div class="skill-item" data-progress="90">
+                                <div class="skill-info">
+                                    <span>Java (Core)</span>
+                                    <span class="percentage">90%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item" data-progress="80">
+                                <div class="skill-info">
+                                    <span>C/C++</span>
+                                    <span class="percentage">80%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item" data-progress="75">
+                                <div class="skill-info">
+                                    <span>Python</span>
+                                    <span class="percentage">75%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item" data-progress="85">
+                                <div class="skill-info">
+                                    <span>SQL (MySQL)</span>
+                                    <span class="percentage">85%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-category reveal-up" style="--delay: 0.2s">
+                        <div class="category-header">
+                            <i class="fas fa-server"></i>
+                            <h3>Backend</h3>
+                        </div>
+                        <div class="skill-items">
+                            <div class="skill-item" data-progress="88">
+                                <div class="skill-info">
+                                    <span>Spring Boot</span>
+                                    <span class="percentage">88%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item" data-progress="82">
+                                <div class="skill-info">
+                                    <span>Spring Security</span>
+                                    <span class="percentage">82%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item" data-progress="80">
+                                <div class="skill-info">
+                                    <span>JPA/Hibernate</span>
+                                    <span class="percentage">80%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item" data-progress="85">
+                                <div class="skill-info">
+                                    <span>RESTful APIs</span>
+                                    <span class="percentage">85%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-category reveal-up" style="--delay: 0.4s">
+                        <div class="category-header">
+                            <i class="fas fa-database"></i>
+                            <h3>Database & Tools</h3>
+                        </div>
+                        <div class="skill-items">
+                            <div class="skill-item" data-progress="85">
+                                <div class="skill-info">
+                                    <span>MySQL</span>
+                                    <span class="percentage">85%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item" data-progress="70">
+                                <div class="skill-info">
+                                    <span>Redis</span>
+                                    <span class="percentage">70%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item" data-progress="80">
+                                <div class="skill-info">
+                                    <span>Git/GitHub</span>
+                                    <span class="percentage">80%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item" data-progress="75">
+                                <div class="skill-info">
+                                    <span>Docker</span>
+                                    <span class="percentage">75%</span>
+                                </div>
+                                <div class="skill-bar">
+                                    <div class="skill-progress"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tech-stack">
+                    <h3>Technologies I Use</h3>
+                    <div class="tech-icons">
+                        <div class="tech-icon magnetic" data-tooltip="Java">
+                            <i class="fab fa-java"></i>
+                        </div>
+                        <div class="tech-icon magnetic" data-tooltip="Spring Boot">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div class="tech-icon magnetic" data-tooltip="Python">
+                            <i class="fab fa-python"></i>
+                        </div>
+                        <div class="tech-icon magnetic" data-tooltip="MySQL">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <div class="tech-icon magnetic" data-tooltip="Docker">
+                            <i class="fab fa-docker"></i>
+                        </div>
+                        <div class="tech-icon magnetic" data-tooltip="Git">
+                            <i class="fab fa-git-alt"></i>
+                        </div>
+                        <div class="tech-icon magnetic" data-tooltip="Linux">
+                            <i class="fab fa-linux"></i>
+                        </div>
+                        <div class="tech-icon magnetic" data-tooltip="GitHub">
+                            <i class="fab fa-github"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">
+                Projects
+                <div class="title-line"></div>
+            </h2>
+            <div class="projects-filter">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="web">Web App</button>
+                <button class="filter-btn" data-filter="cert">Certifications</button>
+                <button class="filter-btn" data-filter="activity">Activities</button>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card reveal-up" data-category="web">
+                    <div class="project-image">
+                        <div class="project-placeholder">
+                            <i class="fas fa-couch"></i>
+                        </div>
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i></a>
+                                <a href="#" class="project-link"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Furniture Store E-commerce</h3>
+                        <p>Team Leader - Built a comprehensive furniture store management system with a team of 5 members. Implemented SSO with Google OAuth2 and VNPAY payment integration.</p>
+                        <div class="project-tags">
+                            <span>Spring Boot</span>
+                            <span>Spring Security</span>
+                            <span>MySQL</span>
+                            <span>JWT</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card reveal-up" data-category="cert" style="--delay: 0.1s">
+                    <div class="project-image">
+                        <img src="nvidia-cert.jpg" alt="NVIDIA Deep Learning Certificate" class="project-img">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="nvidia-cert.jpg" class="project-link" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>NVIDIA Deep Learning</h3>
+                        <p>Certificate of Competency - Fundamentals of Deep Learning by NVIDIA (08/2025)</p>
+                        <div class="project-tags">
+                            <span>Deep Learning</span>
+                            <span>AI/ML</span>
+                            <span>NVIDIA</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card reveal-up" data-category="cert" style="--delay: 0.2s">
+                    <div class="project-image">
+                        <img src="samsung-cert.jpg" alt="Samsung Algorithm Certificate" class="project-img">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="samsung-cert.jpg" class="project-link" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Applications Of Algorithm</h3>
+                        <p>Certificate from PTIT and Samsung Electronics Vietnam - Advanced Algorithm Applications Course (08/2024)</p>
+                        <div class="project-tags">
+                            <span>Algorithms</span>
+                            <span>Samsung</span>
+                            <span>PTIT</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card reveal-up" data-category="activity" style="--delay: 0.3s">
+                    <div class="project-image">
+                        <img src="typ-dev.jpg" alt="Toi Yeu PTIT DEV" class="project-img">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="typ-dev.jpg" class="project-link" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>Toi Yeu PTIT DEV</h3>
+                        <p>Member of TYP DEV - Training 2025. Role: Backend Developer. Active contributor to the developer community.</p>
+                        <div class="project-tags">
+                            <span>Backend</span>
+                            <span>Community</span>
+                            <span>Training</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card reveal-up" data-category="activity" style="--delay: 0.4s">
+                    <div class="project-image">
+                        <img src="lab-nits.jpg" alt="LAB NITS" class="project-img">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="lab-nits.jpg" class="project-link" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>LAB NITS</h3>
+                        <p>Member of LAB Nurturing IT Student Talent (NITS) - Research and development in IT technologies.</p>
+                        <div class="project-tags">
+                            <span>Research</span>
+                            <span>LAB</span>
+                            <span>IT Talent</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card reveal-up" data-category="cert" style="--delay: 0.5s">
+                    <div class="project-image">
+                        <img src="icpc-cert.jpg" alt="ICPC PTIT Certificate" class="project-img">
+                        <div class="project-overlay">
+                            <div class="project-links">
+                                <a href="icpc-cert.jpg" class="project-link" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3>ICPC PTIT 2025 - 3rd Prize</h3>
+                        <p>Third Prize in Competitive Programming in Algorithms and Data Structures. PTIT Study Encouragement Scholarship for 4 consecutive semesters.</p>
+                        <div class="project-tags">
+                            <span>ICPC</span>
+                            <span>Competitive</span>
+                            <span>Algorithms</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">
+                Contact
+                <div class="title-line"></div>
+            </h2>
+            <div class="contact-content">
+                <div class="contact-info reveal-left">
+                    <h3>Let's Connect!</h3>
+                    <p>
+                        I'm always open to discussing new opportunities, projects, or partnerships. 
+                        Feel free to reach out!
+                    </p>
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Email</h4>
+                                <p>buianhducnd96@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Phone</h4>
+                                <p>+84 945 268 805</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Address</h4>
+                                <p>Trieu Khuc, Hanoi, Vietnam</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="social-links-contact">
+                        <a href="https://github.com/anhducwszxje" class="social-link-contact magnetic" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/%C4%91%E1%BB%A9c-b%C3%B9i-anh-85a3a63a9/" class="social-link-contact magnetic" target="_blank"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.facebook.com/anhducwszxje/" class="social-link-contact magnetic" target="_blank"><i class="fab fa-facebook"></i></a>
+                        <a href="mailto:buianhducnd96@gmail.com" class="social-link-contact magnetic"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                <form class="contact-form reveal-right" id="contactForm">
+                    <div class="form-group">
+                        <input type="text" id="name" required>
+                        <label for="name">Full Name</label>
+                        <span class="focus-border"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" required>
+                        <label for="email">Email</label>
+                        <span class="focus-border"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="subject" required>
+                        <label for="subject">Subject</label>
+                        <span class="focus-border"></span>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" rows="5" required></textarea>
+                        <label for="message">Message</label>
+                        <span class="focus-border"></span>
+                    </div>
+                    <button type="submit" class="btn btn-primary magnetic">
+                        <span>Send Message</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">Bui Anh Duc</div>
+            <p>Designed and developed with <i class="fas fa-heart"></i> by Bui Anh Duc</p>
+            <p class="copyright">&copy; 2026 All Rights Reserved.</p>
+        </div>
+        <button class="back-to-top" id="backToTop">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
