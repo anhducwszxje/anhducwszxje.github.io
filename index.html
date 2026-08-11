@@ -1,564 +1,297 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bui Anh Duc | Backend Developer Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="Bui Anh Duc — Cloud and Network Researcher exploring intelligent infrastructure, computer vision, and deep reinforcement learning.">
+    <title>Bui Anh Duc | Cloud & Network Researcher</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Loading Screen -->
-    <div class="loader">
-        <div class="loader-content">
-            <div class="loader-circle"></div>
-            <h2>Loading...</h2>
-        </div>
+    <div class="cosmos" aria-hidden="true">
+        <span class="nebula nebula-one"></span>
+        <span class="nebula nebula-two"></span>
+        <span class="nebula nebula-three"></span>
+    </div>
+    <div class="loader" aria-hidden="true">
+        <div class="loader-mark"><span></span><span></span><span></span></div>
+        <p>ENTERING THE ORBIT</p>
     </div>
 
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-logo">
-            <span class="logo-text">Portfolio</span>
-        </div>
+    <nav class="navbar" aria-label="Main navigation">
+        <a class="nav-logo" href="#home" aria-label="Back to home">
+            <span class="logo-node"></span>
+            <span>BAD<span class="logo-dot">.</span>LAB</span>
+        </a>
         <ul class="nav-links">
             <li><a href="#home" class="nav-link active">Home</a></li>
-            <li><a href="#about" class="nav-link">About</a></li>
-            <li><a href="#skills" class="nav-link">Skills</a></li>
-            <li><a href="#projects" class="nav-link">Projects</a></li>
+            <li><a href="#research" class="nav-link">Research</a></li>
+            <li><a href="#skills" class="nav-link">Toolkit</a></li>
+            <li><a href="#highlights" class="nav-link">Highlights</a></li>
             <li><a href="#contact" class="nav-link">Contact</a></li>
         </ul>
-        <div class="nav-actions">
-            <button class="theme-toggle" id="themeToggle">
-                <i class="fas fa-moon"></i>
-            </button>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
+        <a href="mailto:buianhducnd96@gmail.com" class="nav-cta">Let's talk <i class="fas fa-arrow-up-right-from-square"></i></a>
+        <button class="hamburger" type="button" aria-label="Open navigation" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="particles" id="particles"></div>
-        <div class="hero-content">
-            <div class="hero-text">
-                <p class="greeting animate-text">Hello, I'm</p>
-                <h1 class="name glitch" data-text="Bui Anh Duc">Bui Anh Duc</h1>   
-                <div class="typing-container">
-                    <span class="static-text">I'm a </span>
-                    <span class="typed-text"></span>
-                    <span class="cursor-typing">|</span>
-                </div>
-                <p class="description animate-text">
-                    After two years of exploration and learning at PTIT, I have discovered a strong passion for system architecture. 
-                    Building a solid Backend foundation to become a future Cloud Engineer.
-                </p>
-                <div class="hero-buttons">
-                    <a href="#contact" class="btn btn-primary magnetic">
-                        <span>Contact Me</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
-                    <a href="#projects" class="btn btn-secondary magnetic">
-                        <span>View Projects</span>
-                    </a>
-                </div>
-                <div class="social-links">
-                    <a href="https://github.com/anhducwszxje" class="social-link magnetic" target="_blank"><i class="fab fa-github"></i></a>
-                    <a href="https://www.linkedin.com/in/%C4%91%E1%BB%A9c-b%C3%B9i-anh-85a3a63a9/" class="social-link magnetic" target="_blank"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://www.facebook.com/anhducwszxje/" class="social-link magnetic" target="_blank"><i class="fab fa-facebook"></i></a>
-                    <a href="mailto:buianhducnd96@gmail.com" class="social-link magnetic"><i class="fas fa-envelope"></i></a>
-                </div>
-            </div>
-            <div class="hero-image">
-                <div class="image-container">
-                    <div class="rotating-border"></div>
-                    <div class="profile-img">
-                        <img src="avatar.jpg" alt="Bui Anh Duc" class="avatar-img">
-                    </div>
-                    <div class="floating-shapes">
-                        <div class="shape shape-1"></div>
-                        <div class="shape shape-2"></div>
-                        <div class="shape shape-3"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="scroll-indicator">
-            <div class="mouse">
-                <div class="wheel"></div>
-            </div>
-            <span>Scroll Down</span>
-        </div>
-    </section>
+    <main>
+        <section id="home" class="hero">
+            <canvas id="networkCanvas" aria-hidden="true"></canvas>
+            <div class="hero-grid" aria-hidden="true"></div>
+            <div class="hero-glow hero-glow-one" aria-hidden="true"></div>
+            <div class="hero-glow hero-glow-two" aria-hidden="true"></div>
 
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <h2 class="section-title">
-                About Me
-                <div class="title-line"></div>
-            </h2>
-            <div class="about-content">
-                <div class="about-image reveal-left">
-                    <div class="image-frame">
-                        <div class="frame-border"></div>
-                        <div class="about-img">
-                            <img src="avatar.jpg" alt="Bui Anh Duc" class="about-avatar-img">
-                        </div>
+            <div class="hero-content">
+                <div class="hero-copy">
+                    <p class="eyebrow reveal-up"><span></span> CLOUD SYSTEMS · NETWORK RESEARCH · AI</p>
+                    <h1 class="reveal-up">Researching the systems<br>behind <em>intelligent clouds.</em></h1>
+                    <div class="role-line reveal-up">
+                        <span class="role-prefix">I am a</span>
+                        <span class="typed-text" aria-live="polite"></span><span class="typing-cursor">_</span>
                     </div>
-                </div>
-                <div class="about-text reveal-right">
-                    <h3>My Story</h3>
-                    <p>
-                        After two years of exploration and learning at PTIT, I have discovered a strong passion for 
-                        system architecture. With a clear career path of building a solid Backend foundation to become 
-                        a future Cloud Engineer, I have actively cultivated my skills through both academic coursework 
-                        and intensive self-study.
+                    <p class="hero-description reveal-up">
+                        I'm Bui Anh Duc, exploring scalable cloud infrastructure and learning-based models for resource and network optimization. I combine research curiosity with hands-on systems engineering.
                     </p>
-                    <p>
-                        I'm highly self-motivated with a strong passion for technology, constantly updating knowledge 
-                        on System Architecture and Cloud Computing. I possess a high spirit of self-study, enabling 
-                        quick adaptation to new technologies and frameworks.
-                    </p>
-                    <div class="info-cards">
-                        <div class="info-card">
-                            <div class="card-icon"><i class="fas fa-graduation-cap"></i></div>
-                            <div class="card-content">
-                                <h4>Education</h4>
-                                <p>PTIT - GPA: 4.0/4.0</p>
-                            </div>
-                        </div>
-                        <div class="info-card">
-                            <div class="card-icon"><i class="fas fa-map-marker-alt"></i></div>
-                            <div class="card-content">
-                                <h4>Location</h4>
-                                <p>Hanoi, Vietnam</p>
-                            </div>
-                        </div>
-                        <div class="info-card">
-                            <div class="card-icon"><i class="fas fa-trophy"></i></div>
-                            <div class="card-content">
-                                <h4>Achievement</h4>
-                                <p>ICPC PTIT 3rd Prize</p>
-                            </div>
-                        </div>
+                    <div class="hero-actions reveal-up">
+                        <a href="#highlights" class="btn btn-primary">Explore my journey <i class="fas fa-arrow-right"></i></a>
+                        <a href="https://github.com/anhducwszxje" class="btn btn-ghost" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> GitHub</a>
                     </div>
-                    <a href="#" class="btn btn-primary magnetic">
-                        <span>Download CV</span>
-                        <i class="fas fa-download"></i>
-                    </a>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Skills Section -->
-    <section id="skills" class="skills">
-        <div class="container">
-            <h2 class="section-title">
-                Skills
-                <div class="title-line"></div>
-            </h2>
-            <div class="skills-content">
-                <div class="skills-categories">
-                    <div class="skill-category reveal-up">
-                        <div class="category-header">
-                            <i class="fas fa-code"></i>
-                            <h3>Programming</h3>
-                        </div>
-                        <div class="skill-items">
-                            <div class="skill-item" data-progress="90">
-                                <div class="skill-info">
-                                    <span>Java (Core)</span>
-                                    <span class="percentage">90%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item" data-progress="80">
-                                <div class="skill-info">
-                                    <span>C/C++</span>
-                                    <span class="percentage">80%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item" data-progress="75">
-                                <div class="skill-info">
-                                    <span>Python</span>
-                                    <span class="percentage">75%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item" data-progress="85">
-                                <div class="skill-info">
-                                    <span>SQL (MySQL)</span>
-                                    <span class="percentage">85%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress"></div>
-                                </div>
-                            </div>
-                        </div>
+                <aside class="research-console reveal-up" aria-label="Research focus map">
+                    <div class="console-bar">
+                        <span><i></i><i></i><i></i></span>
+                        <p>research_map.live</p>
+                        <span class="console-status">ONLINE</span>
                     </div>
-                    <div class="skill-category reveal-up" style="--delay: 0.2s">
-                        <div class="category-header">
-                            <i class="fas fa-server"></i>
-                            <h3>Backend</h3>
-                        </div>
-                        <div class="skill-items">
-                            <div class="skill-item" data-progress="88">
-                                <div class="skill-info">
-                                    <span>Spring Boot</span>
-                                    <span class="percentage">88%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item" data-progress="82">
-                                <div class="skill-info">
-                                    <span>Spring Security</span>
-                                    <span class="percentage">82%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item" data-progress="80">
-                                <div class="skill-info">
-                                    <span>JPA/Hibernate</span>
-                                    <span class="percentage">80%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item" data-progress="85">
-                                <div class="skill-info">
-                                    <span>RESTful APIs</span>
-                                    <span class="percentage">85%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress"></div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="console-body">
+                        <div class="signal-ring ring-one"></div>
+                        <div class="signal-ring ring-two"></div>
+                        <div class="focus-node focus-core"><i class="fas fa-brain"></i><span>INTELLIGENCE</span></div>
+                        <div class="focus-node node-cloud"><i class="fas fa-cloud"></i><span>AWS / CLOUD</span></div>
+                        <div class="focus-node node-network"><i class="fas fa-diagram-project"></i><span>TCP / IP</span></div>
+                        <div class="focus-node node-cv"><i class="fas fa-eye"></i><span>VISION</span></div>
+                        <div class="focus-node node-rl"><i class="fas fa-route"></i><span>DDQN / PPO</span></div>
+                        <svg class="console-links" viewBox="0 0 500 380" preserveAspectRatio="none" aria-hidden="true">
+                            <path d="M250 190 L95 84 M250 190 L410 98 M250 190 L108 304 M250 190 L400 298"/>
+                            <circle cx="250" cy="190" r="5"/>
+                        </svg>
                     </div>
-                    <div class="skill-category reveal-up" style="--delay: 0.4s">
-                        <div class="category-header">
-                            <i class="fas fa-database"></i>
-                            <h3>Database & Tools</h3>
-                        </div>
-                        <div class="skill-items">
-                            <div class="skill-item" data-progress="85">
-                                <div class="skill-info">
-                                    <span>MySQL</span>
-                                    <span class="percentage">85%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item" data-progress="70">
-                                <div class="skill-info">
-                                    <span>Redis</span>
-                                    <span class="percentage">70%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item" data-progress="80">
-                                <div class="skill-info">
-                                    <span>Git/GitHub</span>
-                                    <span class="percentage">80%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item" data-progress="75">
-                                <div class="skill-info">
-                                    <span>Docker</span>
-                                    <span class="percentage">75%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress"></div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="console-footer">
+                        <span><b>01</b> SYSTEMS</span>
+                        <span><b>02</b> CONNECTIVITY</span>
+                        <span><b>03</b> LEARNING</span>
                     </div>
-                </div>
-                <div class="tech-stack">
-                    <h3>Technologies I Use</h3>
-                    <div class="tech-icons">
-                        <div class="tech-icon magnetic" data-tooltip="Java">
-                            <i class="fab fa-java"></i>
-                        </div>
-                        <div class="tech-icon magnetic" data-tooltip="Spring Boot">
-                            <i class="fas fa-leaf"></i>
-                        </div>
-                        <div class="tech-icon magnetic" data-tooltip="Python">
-                            <i class="fab fa-python"></i>
-                        </div>
-                        <div class="tech-icon magnetic" data-tooltip="MySQL">
-                            <i class="fas fa-database"></i>
-                        </div>
-                        <div class="tech-icon magnetic" data-tooltip="Docker">
-                            <i class="fab fa-docker"></i>
-                        </div>
-                        <div class="tech-icon magnetic" data-tooltip="Git">
-                            <i class="fab fa-git-alt"></i>
-                        </div>
-                        <div class="tech-icon magnetic" data-tooltip="Linux">
-                            <i class="fab fa-linux"></i>
-                        </div>
-                        <div class="tech-icon magnetic" data-tooltip="GitHub">
-                            <i class="fab fa-github"></i>
-                        </div>
-                    </div>
-                </div>
+                </aside>
             </div>
-        </div>
-    </section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="projects">
-        <div class="container">
-            <h2 class="section-title">
-                Projects
-                <div class="title-line"></div>
-            </h2>
-            <div class="projects-filter">
-                <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="web">Web App</button>
-                <button class="filter-btn" data-filter="cert">Certifications</button>
-                <button class="filter-btn" data-filter="activity">Activities</button>
+            <div class="hero-rail" aria-label="Core research areas">
+                <span>Cloud Computing</span><i></i><span>Network Optimization</span><i></i><span>Deep Reinforcement Learning</span><i></i><span>Computer Vision</span>
             </div>
-            <div class="projects-grid">
-                <div class="project-card reveal-up" data-category="web">
-                    <div class="project-image">
-                        <div class="project-placeholder">
-                            <i class="fas fa-couch"></i>
-                        </div>
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i></a>
-                                <a href="#" class="project-link"><i class="fab fa-github"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <h3>Furniture Store E-commerce</h3>
-                        <p>Team Leader - Built a comprehensive furniture store management system with a team of 5 members. Implemented SSO with Google OAuth2 and VNPAY payment integration.</p>
-                        <div class="project-tags">
-                            <span>Spring Boot</span>
-                            <span>Spring Security</span>
-                            <span>MySQL</span>
-                            <span>JWT</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card reveal-up" data-category="cert" style="--delay: 0.1s">
-                    <div class="project-image">
-                        <img src="nvidia-cert.jpg" alt="NVIDIA Deep Learning Certificate" class="project-img">
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <a href="nvidia-cert.jpg" class="project-link" target="_blank"><i class="fas fa-external-link-alt"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <h3>NVIDIA Deep Learning</h3>
-                        <p>Certificate of Competency - Fundamentals of Deep Learning by NVIDIA (08/2025)</p>
-                        <div class="project-tags">
-                            <span>Deep Learning</span>
-                            <span>AI/ML</span>
-                            <span>NVIDIA</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card reveal-up" data-category="cert" style="--delay: 0.2s">
-                    <div class="project-image">
-                        <img src="samsung-cert.jpg" alt="Samsung Algorithm Certificate" class="project-img">
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <a href="samsung-cert.jpg" class="project-link" target="_blank"><i class="fas fa-external-link-alt"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <h3>Applications Of Algorithm</h3>
-                        <p>Certificate from PTIT and Samsung Electronics Vietnam - Advanced Algorithm Applications Course (08/2024)</p>
-                        <div class="project-tags">
-                            <span>Algorithms</span>
-                            <span>Samsung</span>
-                            <span>PTIT</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card reveal-up" data-category="activity" style="--delay: 0.3s">
-                    <div class="project-image">
-                        <img src="typ-dev.jpg" alt="Toi Yeu PTIT DEV" class="project-img">
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <a href="typ-dev.jpg" class="project-link" target="_blank"><i class="fas fa-external-link-alt"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <h3>Toi Yeu PTIT DEV</h3>
-                        <p>Member of TYP DEV - Training 2025. Role: Backend Developer. Active contributor to the developer community.</p>
-                        <div class="project-tags">
-                            <span>Backend</span>
-                            <span>Community</span>
-                            <span>Training</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card reveal-up" data-category="activity" style="--delay: 0.4s">
-                    <div class="project-image">
-                        <img src="lab-nits.jpg" alt="LAB NITS" class="project-img">
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <a href="lab-nits.jpg" class="project-link" target="_blank"><i class="fas fa-external-link-alt"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <h3>LAB NITS</h3>
-                        <p>Member of LAB Nurturing IT Student Talent (NITS) - Research and development in IT technologies.</p>
-                        <div class="project-tags">
-                            <span>Research</span>
-                            <span>LAB</span>
-                            <span>IT Talent</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card reveal-up" data-category="cert" style="--delay: 0.5s">
-                    <div class="project-image">
-                        <img src="icpc-cert.jpg" alt="ICPC PTIT Certificate" class="project-img">
-                        <div class="project-overlay">
-                            <div class="project-links">
-                                <a href="icpc-cert.jpg" class="project-link" target="_blank"><i class="fas fa-external-link-alt"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-info">
-                        <h3>ICPC PTIT 2025 - 3rd Prize</h3>
-                        <p>Third Prize in Competitive Programming in Algorithms and Data Structures. PTIT Study Encouragement Scholarship for 4 consecutive semesters.</p>
-                        <div class="project-tags">
-                            <span>ICPC</span>
-                            <span>Competitive</span>
-                            <span>Algorithms</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+            <a href="#research" class="scroll-cue" aria-label="Scroll to research"><span></span> MOVE THE CURSOR · WATCH THE NETWORK REACT</a>
+        </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title">
-                Contact
-                <div class="title-line"></div>
-            </h2>
-            <div class="contact-content">
-                <div class="contact-info reveal-left">
-                    <h3>Let's Connect!</h3>
-                    <p>
-                        I'm always open to discussing new opportunities, projects, or partnerships. 
-                        Feel free to reach out!
-                    </p>
-                    <div class="contact-details">
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div class="contact-text">
-                                <h4>Email</h4>
-                                <p>buianhducnd96@gmail.com</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-phone"></i>
-                            </div>
-                            <div class="contact-text">
-                                <h4>Phone</h4>
-                                <p>+84 945 268 805</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
-                            <div class="contact-text">
-                                <h4>Address</h4>
-                                <p>Trieu Khuc, Hanoi, Vietnam</p>
-                            </div>
-                        </div>
+        <section id="research" class="section research-section">
+            <div class="container">
+                <div class="section-heading reveal-up">
+                    <div>
+                        <p class="section-kicker">01 / RESEARCH DIRECTION</p>
+                        <h2>Where cloud systems meet<br><em>learning-based intelligence.</em></h2>
                     </div>
-                    <div class="social-links-contact">
-                        <a href="https://github.com/anhducwszxje" class="social-link-contact magnetic" target="_blank"><i class="fab fa-github"></i></a>
-                        <a href="https://www.linkedin.com/in/%C4%91%E1%BB%A9c-b%C3%B9i-anh-85a3a63a9/" class="social-link-contact magnetic" target="_blank"><i class="fab fa-linkedin"></i></a>
-                        <a href="https://www.facebook.com/anhducwszxje/" class="social-link-contact magnetic" target="_blank"><i class="fab fa-facebook"></i></a>
-                        <a href="mailto:buianhducnd96@gmail.com" class="social-link-contact magnetic"><i class="fas fa-envelope"></i></a>
+                    <p class="section-intro">My current direction combines cloud deployment, network fundamentals, and AI methods for complex resource and connectivity problems.</p>
+                </div>
+
+                <div class="research-grid">
+                    <article class="research-card reveal-up">
+                        <div class="card-index">01</div>
+                        <div class="card-icon"><i class="fas fa-cloud"></i></div>
+                        <h3>Cloud Systems</h3>
+                        <p>Deploying and studying scalable services, containerized workloads, cloud resources, and reliable infrastructure.</p>
+                        <div class="card-tags"><span>AWS EC2</span><span>Docker</span><span>Cloud Deployment</span></div>
+                        <div class="card-line"></div>
+                    </article>
+                    <article class="research-card reveal-up" style="--delay: .1s">
+                        <div class="card-index">02</div>
+                        <div class="card-icon"><i class="fas fa-tower-broadcast"></i></div>
+                        <h3>Intelligent Networks</h3>
+                        <p>Studying how networked systems can become adaptive, efficient, observable, and easier to operate.</p>
+                        <div class="card-tags"><span>TCP/IP</span><span>DNS</span><span>Network Optimization</span></div>
+                        <div class="card-line"></div>
+                    </article>
+                    <article class="research-card reveal-up" style="--delay: .2s">
+                        <div class="card-index">03</div>
+                        <div class="card-icon"><i class="fas fa-microchip"></i></div>
+                        <h3>AI for Networks</h3>
+                        <p>Applying computer vision and deep reinforcement learning to perception, resource control, and sequential decisions.</p>
+                        <div class="card-tags"><span>DDQN</span><span>PPO</span><span>Computer Vision</span></div>
+                        <div class="card-line"></div>
+                    </article>
+                </div>
+
+                <div class="achievement-strip reveal-up" aria-label="Key achievements">
+                    <div><strong>1st Prize</strong><span>Huawei ICT Global Final 2026</span></div>
+                    <div><strong>Grand Prize</strong><span>Huawei ICT Asia Pacific 2026</span></div>
+                    <div><strong>3.85 / 4.0</strong><span>PTIT Talented Program GPA</span></div>
+                    <div><strong>6 semesters</strong><span>Study Encouragement Scholarship</span></div>
+                    <div><strong>830</strong><span>TOEIC Certificate</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="section toolkit-section">
+            <div class="container">
+                <div class="section-heading light reveal-up">
+                    <div>
+                        <p class="section-kicker">02 / RESEARCH TOOLKIT</p>
+                        <h2>Methods, systems,<br><em>and engineering tools.</em></h2>
+                    </div>
+                    <p class="section-intro">A practical toolkit for turning research questions into reproducible experiments and working systems.</p>
+                </div>
+
+                <div class="toolkit-grid">
+                    <article class="toolkit-card reveal-up">
+                        <header><span>AI / LEARNING</span><i class="fas fa-brain"></i></header>
+                        <h3>Learning-based methods</h3>
+                        <div class="skill-chips">
+                            <span>Computer Vision</span><span>Deep Learning</span><span>Multilayer Perceptron</span><span>Deep RL</span><span>DDQN</span><span>PPO</span><span>NumPy</span><span>Pandas</span><span>Scikit-learn</span>
+                        </div>
+                    </article>
+                    <article class="toolkit-card reveal-up" style="--delay: .08s">
+                        <header><span>CLOUD / SYSTEMS</span><i class="fas fa-server"></i></header>
+                        <h3>Systems foundation</h3>
+                        <div class="skill-chips">
+                            <span>Cloud Computing</span><span>AWS EC2</span><span>Docker</span><span>Ubuntu</span><span>GitLab CI/CD</span><span>Cloud Deployment</span>
+                        </div>
+                    </article>
+                    <article class="toolkit-card reveal-up" style="--delay: .16s">
+                        <header><span>NETWORKING</span><i class="fas fa-network-wired"></i></header>
+                        <h3>Connected infrastructure</h3>
+                        <div class="skill-chips">
+                            <span>Computer Networks</span><span>TCP/IP</span><span>HTTP/HTTPS</span><span>DNS</span><span>Network Optimization</span><span>RabbitMQ</span><span>Redis</span>
+                        </div>
+                    </article>
+                    <article class="toolkit-card reveal-up" style="--delay: .24s">
+                        <header><span>ENGINEERING</span><i class="fas fa-code"></i></header>
+                        <h3>Implementation stack</h3>
+                        <div class="skill-chips">
+                            <span>Java</span><span>C / C++</span><span>Python</span><span>SQL / MySQL</span><span>Spring Boot</span><span>ReactJS</span><span>Git / GitHub / GitLab</span><span>Postman</span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="highlights" class="section highlights-section">
+            <div class="container">
+                <div class="section-heading reveal-up">
+                    <div>
+                        <p class="section-kicker">03 / SELECTED HIGHLIGHTS</p>
+                        <h2>Evidence of<br><em>learning and building.</em></h2>
+                    </div>
+                    <p class="section-intro">Selected awards, cloud projects, academic work, and certificates from my latest CV.</p>
+                </div>
+
+                <div class="highlight-filters reveal-up" role="group" aria-label="Filter highlights">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="achievement">Achievements</button>
+                    <button class="filter-btn" data-filter="project">Projects</button>
+                    <button class="filter-btn" data-filter="certificate">Certificates</button>
+                    <button class="filter-btn" data-filter="activity">Academic work</button>
+                </div>
+
+                <div class="highlights-grid">
+                    <article class="highlight-card feature reveal-up" data-category="achievement">
+                        <a class="highlight-image certificate-image" href="huawei-global-final.png" target="_blank" aria-label="Open Huawei ICT Global Final First Prize certificate"><img src="huawei-global-final.png" alt="Huawei ICT Competition Global Final 2025–2026 First Prize certificate"></a>
+                        <div class="highlight-content">
+                            <p class="highlight-type">FIRST PRIZE / JUNE 2026</p>
+                            <h3>Huawei ICT Competition Global Final 2025–2026</h3>
+                            <p>First Prize in the Computing Track, covering hands-on cloud computing, openEuler, openGauss, and Kunpeng technologies.</p>
+                            <div class="card-tags"><span>Cloud</span><span>openEuler</span><span>openGauss</span><span>Kunpeng</span></div>
+                        </div>
+                    </article>
+
+                    <article class="highlight-card reveal-up" data-category="achievement" style="--delay: .08s">
+                        <a class="highlight-image certificate-image" href="huawei-apac-grand-prize.png" target="_blank" aria-label="Open Huawei ICT Asia Pacific Grand Prize certificate"><img src="huawei-apac-grand-prize.png" alt="Huawei ICT Competition Asia Pacific 2025–2026 Grand Prize certificate"></a>
+                        <div class="highlight-content"><p class="highlight-type">GRAND PRIZE / MAY 2026</p><h3>Huawei ICT Competition Regional APAC</h3><p>Grand Prize in the 2025–2026 Computing Track at the Asia Pacific regional competition.</p></div>
+                    </article>
+
+                    <article class="highlight-card reveal-up" data-category="achievement" style="--delay: .12s">
+                        <div class="achievement-card-top"><i class="fas fa-graduation-cap"></i><span>ACADEMIC RECORD</span></div>
+                        <div class="highlight-content"><p class="highlight-type">6 CONSECUTIVE SEMESTERS</p><h3>PTIT Study Encouragement Scholarship</h3><p>Awarded for excellent academic performance in six consecutive semesters; current GPA 3.85/4.0.</p></div>
+                    </article>
+
+                    <article class="highlight-card feature reveal-up" data-category="project" style="--delay: .16s">
+                        <div class="highlight-visual project-visual">
+                            <i class="fas fa-cloud-arrow-up"></i><span>CONTAINERIZED CLOUD DEPLOYMENT</span>
+                        </div>
+                        <div class="highlight-content">
+                            <p class="highlight-type">TEAM LEADER / FEB–MAY 2026</p>
+                            <h3>Tennis Court Management System</h3>
+                            <p>Built a booking and payment platform with caching, asynchronous messaging, CI/CD, AI-assisted marketing, and a fully containerized AWS EC2 deployment.</p>
+                            <div class="card-tags"><span>Spring Boot</span><span>ReactJS</span><span>Redis</span><span>RabbitMQ</span><span>Docker</span><span>AWS EC2</span></div>
+                        </div>
+                    </article>
+
+                    <article class="highlight-card reveal-up" data-category="project" style="--delay: .2s">
+                        <div class="achievement-card-top"><i class="fas fa-layer-group"></i><span>CLOUD ENGINEERING</span></div>
+                        <div class="highlight-content"><p class="highlight-type">TEAM LEADER / OCT–DEC 2025</p><h3>Furniture Store E-commerce</h3><p>Led a five-member team, integrated OAuth2/JWT and VNPAY, then deployed the application on AWS EC2.</p><div class="card-tags"><span>Spring Boot</span><span>MySQL</span><span>AWS EC2</span></div></div>
+                    </article>
+
+                    <article class="highlight-card reveal-up" data-category="achievement" style="--delay: .24s">
+                        <a class="highlight-image" href="icpc-cert.jpg" target="_blank" aria-label="Open ICPC certificate"><img src="icpc-cert.jpg" alt="ICPC PTIT third prize certificate"></a>
+                        <div class="highlight-content"><p class="highlight-type">THIRD PRIZE / SEPTEMBER 2025</p><h3>ICPC PTIT 2025</h3><p>Third Prize in competitive programming, algorithms, and data structures.</p></div>
+                    </article>
+
+                    <article class="highlight-card reveal-up" data-category="certificate" style="--delay: .28s">
+                        <a class="highlight-image" href="nvidia-cert.jpg" target="_blank" aria-label="Open NVIDIA certificate"><img src="nvidia-cert.jpg" alt="NVIDIA Fundamentals of Deep Learning certificate"></a>
+                        <div class="highlight-content"><p class="highlight-type">CERTIFICATE / AUGUST 2025</p><h3>NVIDIA Deep Learning</h3><p>Certificate of Competency in Fundamentals of Deep Learning.</p></div>
+                    </article>
+
+                    <article class="highlight-card reveal-up" data-category="certificate" style="--delay: .32s">
+                        <a class="highlight-image" href="samsung-cert.jpg" target="_blank" aria-label="Open Samsung certificate"><img src="samsung-cert.jpg" alt="Samsung Advanced Algorithm Applications certificate"></a>
+                        <div class="highlight-content"><p class="highlight-type">CERTIFICATE / AUGUST 2024</p><h3>Applications of Algorithms</h3><p>Advanced Algorithm Applications course co-organized by PTIT and Samsung Electronics Vietnam.</p></div>
+                    </article>
+
+                    <article class="highlight-card reveal-up" data-category="activity" style="--delay: .36s">
+                        <div class="achievement-card-top"><i class="fas fa-chalkboard-user"></i><span>PTIT · 2026–NOW</span></div>
+                        <div class="highlight-content"><p class="highlight-type">ACADEMIC CONTRIBUTION</p><h3>Teaching & Research Assistant</h3><p>Supporting academic collaboration, mentoring, and technical guidance in data structures and algorithms at PTIT.</p></div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section">
+            <canvas id="contactNetwork" aria-hidden="true"></canvas>
+            <div class="container contact-inner">
+                <p class="section-kicker reveal-up">04 / CONTACT</p>
+                <h2 class="reveal-up">Let's connect the<br><em>next idea.</em></h2>
+                <p class="contact-lead reveal-up">Open to research conversations, collaboration, and opportunities around cloud systems, intelligent networks, and AI.</p>
+                <a class="contact-email reveal-up" href="mailto:buianhducnd96@gmail.com">buianhducnd96@gmail.com <i class="fas fa-arrow-right"></i></a>
+                <div class="contact-meta reveal-up">
+                    <span><i class="fas fa-location-dot"></i> Hanoi, Vietnam</span>
+                    <span><i class="fas fa-phone"></i> +84 945 268 805</span>
+                    <div class="contact-socials">
+                        <a href="https://github.com/anhducwszxje" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/%C4%91%E1%BB%A9c-b%C3%B9i-anh-85a3a63a9/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.facebook.com/anhducwszxje/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
                     </div>
                 </div>
-                <form class="contact-form reveal-right" id="contactForm">
-                    <div class="form-group">
-                        <input type="text" id="name" required>
-                        <label for="name">Full Name</label>
-                        <span class="focus-border"></span>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" id="email" required>
-                        <label for="email">Email</label>
-                        <span class="focus-border"></span>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" id="subject" required>
-                        <label for="subject">Subject</label>
-                        <span class="focus-border"></span>
-                    </div>
-                    <div class="form-group">
-                        <textarea id="message" rows="5" required></textarea>
-                        <label for="message">Message</label>
-                        <span class="focus-border"></span>
-                    </div>
-                    <button type="submit" class="btn btn-primary magnetic">
-                        <span>Send Message</span>
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </form>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <!-- Footer -->
     <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-logo">Bui Anh Duc</div>
-            <p>Designed and developed with <i class="fas fa-heart"></i> by Bui Anh Duc</p>
-            <p class="copyright">&copy; 2026 All Rights Reserved.</p>
-        </div>
-        <button class="back-to-top" id="backToTop">
-            <i class="fas fa-arrow-up"></i>
-        </button>
+        <a class="nav-logo" href="#home"><span class="logo-node"></span><span>BAD<span class="logo-dot">.</span>LAB</span></a>
+        <p>Cloud · Networks · Intelligence</p>
+        <p>© <span id="currentYear"></span> Bui Anh Duc</p>
     </footer>
-
+    <button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
     <script src="script.js"></script>
 </body>
 </html>

@@ -1,359 +1,257 @@
-// ==================== DOM Elements ====================
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// Loader
 const loader = document.querySelector('.loader');
-const cursor = document.querySelector('.cursor');
-const cursorFollower = document.querySelector('.cursor-follower');
+window.addEventListener('load', () => {
+    window.setTimeout(() => loader?.classList.add('hidden'), reducedMotion ? 0 : 550);
+});
+
+// Navigation
 const navbar = document.querySelector('.navbar');
-const navLinks = document.querySelectorAll('.nav-link');
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-links');
-const themeToggle = document.getElementById('themeToggle');
+const navLinks = [...document.querySelectorAll('.nav-link')];
 const backToTop = document.getElementById('backToTop');
-const skillBars = document.querySelectorAll('.skill-item');
-const filterBtns = document.querySelectorAll('.filter-btn');
-const projectCards = document.querySelectorAll('.project-card');
 
-// ==================== Loader ====================
-window.addEventListener('load', () => {
-    setTimeout(() => {
-        loader.classList.add('hidden');
-    }, 1500);
-});
-
-// ==================== Custom Cursor ====================
-document.addEventListener('mousemove', (e) => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
-    
-    setTimeout(() => {
-        cursorFollower.style.left = e.clientX - 15 + 'px';
-        cursorFollower.style.top = e.clientY - 15 + 'px';
-    }, 100);
-});
-
-// Cursor hover effects
-const interactiveElements = document.querySelectorAll('a, button, .magnetic, input, textarea');
-interactiveElements.forEach(el => {
-    el.addEventListener('mouseenter', () => {
-        cursor.classList.add('active');
-        cursorFollower.classList.add('active');
-    });
-    el.addEventListener('mouseleave', () => {
-        cursor.classList.remove('active');
-        cursorFollower.classList.remove('active');
-    });
-});
-
-// ==================== Particles ====================
-function createParticles() {
-    const particlesContainer = document.getElementById('particles');
-    const particleCount = 50;
-    
-    for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        
-        const size = Math.random() * 10 + 5;
-        const left = Math.random() * 100;
-        const delay = Math.random() * 15;
-        const duration = Math.random() * 10 + 10;
-        
-        particle.style.width = size + 'px';
-        particle.style.height = size + 'px';
-        particle.style.left = left + '%';
-        particle.style.animationDelay = delay + 's';
-        particle.style.animationDuration = duration + 's';
-        
-        // Random colors
-        const colors = ['#6c5ce7', '#00cec9', '#fd79a8', '#a29bfe', '#81ecec'];
-        particle.style.background = colors[Math.floor(Math.random() * colors.length)];
-        
-        particlesContainer.appendChild(particle);
-    }
+function closeMenu() {
+    hamburger?.classList.remove('active');
+    navMenu?.classList.remove('active');
+    hamburger?.setAttribute('aria-expanded', 'false');
 }
 
-createParticles();
+hamburger?.addEventListener('click', () => {
+    const isOpen = navMenu?.classList.toggle('active');
+    hamburger.classList.toggle('active', isOpen);
+    hamburger.setAttribute('aria-expanded', String(isOpen));
+});
 
-// ==================== Typing Effect ====================
-const typedTextElement = document.querySelector('.typed-text');
-const words = ['Backend Developer', 'Java Developer', 'Cloud Engineer', 'Problem Solver'];
-let wordIndex = 0;
-let charIndex = 0;
-let isDeleting = false;
-let typeSpeed = 100;
+navLinks.forEach(link => link.addEventListener('click', closeMenu));
 
-function typeEffect() {
-    const currentWord = words[wordIndex];
-    
-    if (isDeleting) {
-        typedTextElement.textContent = currentWord.substring(0, charIndex - 1);
-        charIndex--;
-        typeSpeed = 50;
-    } else {
-        typedTextElement.textContent = currentWord.substring(0, charIndex + 1);
-        charIndex++;
-        typeSpeed = 100;
-    }
-    
-    if (!isDeleting && charIndex === currentWord.length) {
-        isDeleting = true;
-        typeSpeed = 2000; // Pause at end
-    } else if (isDeleting && charIndex === 0) {
-        isDeleting = false;
-        wordIndex = (wordIndex + 1) % words.length;
-        typeSpeed = 500; // Pause before new word
-    }
-    
-    setTimeout(typeEffect, typeSpeed);
-}
-
-// Start typing after loader
-setTimeout(typeEffect, 2000);
-
-// ==================== Navbar Scroll Effect ====================
 window.addEventListener('scroll', () => {
-    if (window.scrollY > 100) {
-        navbar.classList.add('scrolled');
+    const hasScrolled = window.scrollY > 30;
+    navbar?.classList.toggle('scrolled', hasScrolled);
+    backToTop?.classList.toggle('visible', window.scrollY > 600);
+}, { passive: true });
+
+backToTop?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' }));
+
+const sectionObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === `#${entry.target.id}`));
+    });
+}, { rootMargin: '-35% 0px -58% 0px' });
+
+document.querySelectorAll('main section[id]').forEach(section => sectionObserver.observe(section));
+
+// Scroll reveal
+const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            revealObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: .12 });
+
+document.querySelectorAll('.reveal-up').forEach(element => revealObserver.observe(element));
+
+// Research roles
+const typedText = document.querySelector('.typed-text');
+const roles = ['Cloud Researcher', 'Network Researcher', 'AI for Networks Researcher'];
+
+if (typedText) {
+    if (reducedMotion) {
+        typedText.textContent = roles[0];
     } else {
-        navbar.classList.remove('scrolled');
-    }
-    
-    // Back to top button
-    if (window.scrollY > 500) {
-        backToTop.classList.add('visible');
-    } else {
-        backToTop.classList.remove('visible');
-    }
-    
-    // Active nav link based on scroll
-    const sections = document.querySelectorAll('section');
-    let current = '';
-    
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop - 200;
-        if (window.scrollY >= sectionTop) {
-            current = section.getAttribute('id');
-        }
-    });
-    
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === '#' + current) {
-            link.classList.add('active');
-        }
-    });
-});
+        let roleIndex = 0;
+        let characterIndex = 0;
+        let deleting = false;
 
-// ==================== Mobile Menu ====================
-hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navMenu.classList.toggle('active');
-});
+        function typeRole() {
+            const role = roles[roleIndex];
+            characterIndex += deleting ? -1 : 1;
+            typedText.textContent = role.slice(0, characterIndex);
 
-navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        navMenu.classList.remove('active');
-    });
-});
-
-// ==================== Theme Toggle ====================
-themeToggle.addEventListener('click', () => {
-    document.body.classList.toggle('light-theme');
-    const icon = themeToggle.querySelector('i');
-    
-    if (document.body.classList.contains('light-theme')) {
-        icon.classList.remove('fa-moon');
-        icon.classList.add('fa-sun');
-    } else {
-        icon.classList.remove('fa-sun');
-        icon.classList.add('fa-moon');
-    }
-});
-
-// ==================== Back to Top ====================
-backToTop.addEventListener('click', () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
-});
-
-// ==================== Scroll Reveal Animation ====================
-function revealOnScroll() {
-    const reveals = document.querySelectorAll('.reveal-left, .reveal-right, .reveal-up');
-    
-    reveals.forEach(element => {
-        const windowHeight = window.innerHeight;
-        const elementTop = element.getBoundingClientRect().top;
-        const elementVisible = 150;
-        
-        if (elementTop < windowHeight - elementVisible) {
-            element.classList.add('active');
-        }
-    });
-}
-
-window.addEventListener('scroll', revealOnScroll);
-revealOnScroll(); // Check on load
-
-// ==================== Skill Bars Animation ====================
-function animateSkillBars() {
-    skillBars.forEach(skill => {
-        const windowHeight = window.innerHeight;
-        const elementTop = skill.getBoundingClientRect().top;
-        
-        if (elementTop < windowHeight - 100) {
-            const progress = skill.getAttribute('data-progress');
-            const progressBar = skill.querySelector('.skill-progress');
-            progressBar.style.width = progress + '%';
-        }
-    });
-}
-
-window.addEventListener('scroll', animateSkillBars);
-
-// ==================== Project Filter ====================
-filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        // Remove active class from all buttons
-        filterBtns.forEach(b => b.classList.remove('active'));
-        // Add active class to clicked button
-        btn.classList.add('active');
-        
-        const filter = btn.getAttribute('data-filter');
-        
-        projectCards.forEach(card => {
-            const category = card.getAttribute('data-category');
-            
-            if (filter === 'all' || category === filter) {
-                card.style.display = 'block';
-                setTimeout(() => {
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, 10);
-            } else {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                setTimeout(() => {
-                    card.style.display = 'none';
-                }, 300);
+            let delay = deleting ? 38 : 76;
+            if (!deleting && characterIndex === role.length) {
+                deleting = true;
+                delay = 1700;
+            } else if (deleting && characterIndex === 0) {
+                deleting = false;
+                roleIndex = (roleIndex + 1) % roles.length;
+                delay = 350;
             }
+            window.setTimeout(typeRole, delay);
+        }
+
+        window.setTimeout(typeRole, 850);
+    }
+}
+
+// Dense interactive network: hovering repels nearby nodes, matching the
+// reference site's interaction without requiring clicks or drag gestures.
+function createNetwork(canvas, options = {}) {
+    if (!canvas) return;
+
+    const context = canvas.getContext('2d');
+    const host = canvas.parentElement;
+    const pointer = { x: 0, y: 0, active: false };
+    let width = 0;
+    let height = 0;
+    let nodes = [];
+    let animationFrame;
+    let resizeTimer;
+
+    function seedNodes() {
+        const density = options.density || 24;
+        const minimum = width < 650 ? (options.mobileMinNodes || 44) : (options.minNodes || 90);
+        const count = Math.min(options.maxNodes || 150, Math.max(minimum, Math.floor(width / density)));
+        nodes = Array.from({ length: count }, (_, index) => ({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            driftX: (Math.random() - .5) * (options.speed || .25),
+            driftY: (Math.random() - .5) * (options.speed || .25),
+            impulseX: 0,
+            impulseY: 0,
+            radius: Math.random() * 1.7 + 1.1,
+            phase: Math.random() * Math.PI * 2,
+            accent: index % 11 === 0
+        }));
+        canvas.dataset.nodeCount = String(nodes.length);
+    }
+
+    function resize() {
+        const rect = host.getBoundingClientRect();
+        const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+        width = Math.max(1, rect.width);
+        height = Math.max(1, rect.height);
+        canvas.width = Math.round(width * pixelRatio);
+        canvas.height = Math.round(height * pixelRatio);
+        canvas.style.width = `${width}px`;
+        canvas.style.height = `${height}px`;
+        context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+        seedNodes();
+        if (reducedMotion) draw(0);
+    }
+
+    function draw(time) {
+        context.clearRect(0, 0, width, height);
+        const connectionDistance = width < 650 ? 105 : 150;
+
+        for (let index = 0; index < nodes.length; index += 1) {
+            const node = nodes[index];
+
+            if (!reducedMotion) {
+                if (pointer.active) {
+                    const pointerX = node.x - pointer.x;
+                    const pointerY = node.y - pointer.y;
+                    const pointerDistance = Math.hypot(pointerX, pointerY);
+                    const repulseDistance = 165;
+                    if (pointerDistance < repulseDistance && pointerDistance > 0) {
+                        const strength = (1 - pointerDistance / repulseDistance) * 1.05;
+                        node.impulseX += (pointerX / pointerDistance) * strength;
+                        node.impulseY += (pointerY / pointerDistance) * strength;
+
+                        const impulseSpeed = Math.hypot(node.impulseX, node.impulseY);
+                        if (impulseSpeed > 4.2) {
+                            node.impulseX = (node.impulseX / impulseSpeed) * 4.2;
+                            node.impulseY = (node.impulseY / impulseSpeed) * 4.2;
+                        }
+                    }
+                }
+
+                node.x += node.driftX + node.impulseX;
+                node.y += node.driftY + node.impulseY;
+                node.impulseX *= .88;
+                node.impulseY *= .88;
+
+                if (node.x < -12 || node.x > width + 12) {
+                    node.driftX *= -1;
+                    node.impulseX *= -.4;
+                }
+                if (node.y < -12 || node.y > height + 12) {
+                    node.driftY *= -1;
+                    node.impulseY *= -.4;
+                }
+            }
+
+            for (let peerIndex = index + 1; peerIndex < nodes.length; peerIndex += 1) {
+                const peer = nodes[peerIndex];
+                const distance = Math.hypot(node.x - peer.x, node.y - peer.y);
+                if (distance >= connectionDistance) continue;
+
+                const alpha = (1 - distance / connectionDistance) * (options.opacity || .24);
+                const accentLine = node.accent && peerIndex % 3 === 0;
+                context.beginPath();
+                context.moveTo(node.x, node.y);
+                context.lineTo(peer.x, peer.y);
+                context.strokeStyle = accentLine ? `rgba(155,109,255,${alpha * 1.35})` : `rgba(99,231,255,${alpha})`;
+                context.lineWidth = accentLine ? 1.1 : .7;
+                context.stroke();
+            }
+
+            const pulse = reducedMotion ? 1 : 1 + Math.sin(time * .0015 + node.phase) * .3;
+            context.beginPath();
+            context.arc(node.x, node.y, node.radius * pulse, 0, Math.PI * 2);
+            context.fillStyle = node.accent ? 'rgba(155,109,255,.95)' : 'rgba(226,240,255,.78)';
+            context.fill();
+
+            if (node.accent) {
+                context.beginPath();
+                context.arc(node.x, node.y, 6 * pulse, 0, Math.PI * 2);
+                context.strokeStyle = 'rgba(155,109,255,.28)';
+                context.stroke();
+            }
+        }
+
+        if (!reducedMotion) animationFrame = requestAnimationFrame(draw);
+    }
+
+    host.addEventListener('pointermove', event => {
+        const rect = host.getBoundingClientRect();
+        pointer.x = event.clientX - rect.left;
+        pointer.y = event.clientY - rect.top;
+        pointer.active = true;
+    }, { passive: true });
+    host.addEventListener('pointerleave', () => { pointer.active = false; });
+
+    window.addEventListener('resize', () => {
+        window.clearTimeout(resizeTimer);
+        resizeTimer = window.setTimeout(resize, 120);
+    }, { passive: true });
+
+    document.addEventListener('visibilitychange', () => {
+        if (reducedMotion) return;
+        if (document.hidden) {
+            cancelAnimationFrame(animationFrame);
+        } else {
+            animationFrame = requestAnimationFrame(draw);
+        }
+    });
+
+    resize();
+    if (!reducedMotion) animationFrame = requestAnimationFrame(draw);
+}
+
+createNetwork(document.getElementById('networkCanvas'), { density: 8, minNodes: 240, mobileMinNodes: 72, maxNodes: 240, speed: .9, opacity: .34 });
+createNetwork(document.getElementById('contactNetwork'), { density: 18, minNodes: 82, mobileMinNodes: 42, maxNodes: 100, speed: .4, opacity: .22 });
+
+// Highlight filters
+const filterButtons = document.querySelectorAll('.filter-btn');
+const highlightCards = document.querySelectorAll('.highlight-card');
+
+filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        filterButtons.forEach(item => item.classList.remove('active'));
+        button.classList.add('active');
+        const filter = button.dataset.filter;
+
+        highlightCards.forEach(card => {
+            const visible = filter === 'all' || card.dataset.category === filter;
+            card.classList.toggle('hidden-card', !visible);
         });
     });
 });
 
-// ==================== Magnetic Effect ====================
-const magneticElements = document.querySelectorAll('.magnetic');
-
-magneticElements.forEach(el => {
-    el.addEventListener('mousemove', (e) => {
-        const rect = el.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-        
-        el.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
-    });
-    
-    el.addEventListener('mouseleave', () => {
-        el.style.transform = 'translate(0, 0)';
-    });
-});
-
-// ==================== Smooth Scroll for Navigation ====================
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
-
-// ==================== Form Submission ====================
-const contactForm = document.getElementById('contactForm');
-
-contactForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    // Get form values
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const subject = document.getElementById('subject').value;
-    const message = document.getElementById('message').value;
-    
-    // Here you would typically send the form data to a server
-    // For now, we'll just show an alert
-    alert(`Thank you ${name}! Your message has been sent.`);
-    
-    // Reset form
-    contactForm.reset();
-});
-
-// ==================== Parallax Effect on Hero ====================
-window.addEventListener('scroll', () => {
-    const scrolled = window.scrollY;
-    const hero = document.querySelector('.hero');
-    const heroContent = document.querySelector('.hero-content');
-    
-    if (scrolled < window.innerHeight) {
-        heroContent.style.transform = `translateY(${scrolled * 0.3}px)`;
-        heroContent.style.opacity = 1 - scrolled / window.innerHeight;
-    }
-});
-
-// ==================== Tilt Effect on Cards ====================
-const cards = document.querySelectorAll('.project-card, .skill-category, .info-card');
-
-cards.forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        
-        const rotateX = (y - centerY) / 10;
-        const rotateY = (centerX - x) / 10;
-        
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-    });
-    
-    card.addEventListener('mouseleave', () => {
-        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
-    });
-});
-
-// ==================== Counter Animation ====================
-function animateCounter(element, target, duration) {
-    let start = 0;
-    const increment = target / (duration / 16);
-    
-    const timer = setInterval(() => {
-        start += increment;
-        if (start >= target) {
-            element.textContent = target;
-            clearInterval(timer);
-        } else {
-            element.textContent = Math.floor(start);
-        }
-    }, 16);
-}
-
-// ==================== Random Glitch Effect ====================
-setInterval(() => {
-    const glitch = document.querySelector('.glitch');
-    glitch.style.animation = 'none';
-    void glitch.offsetWidth; // Trigger reflow
-    glitch.style.animation = null;
-}, 5000);
-
-// ==================== Console Easter Egg ====================
-console.log('%c🚀 Welcome to my Portfolio!', 'font-size: 24px; font-weight: bold; color: #6c5ce7;');
-console.log('%c💻 Built with HTML, CSS & JavaScript', 'font-size: 14px; color: #00cec9;');
-console.log('%c✨ Thanks for checking out my code!', 'font-size: 14px; color: #fd79a8;');
+document.getElementById('currentYear').textContent = new Date().getFullYear();
