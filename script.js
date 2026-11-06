@@ -255,3 +255,38 @@ filterButtons.forEach(button => {
 });
 
 document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+// Research constellation: pointer previews, keyboard focus, and persistent touch selection.
+const constellation = document.querySelector('.constellation');
+if (constellation) {
+    const researchNodes = [...constellation.querySelectorAll('[data-research]')];
+    const researchLinks = [...constellation.querySelectorAll('[data-link]')];
+    const detailLabel = document.querySelector('.research-detail-label');
+    const detailText = document.querySelector('.research-detail p');
+    let selectedNode = null;
+    function showResearch(node) {
+        constellation.classList.toggle('is-exploring', Boolean(node));
+        researchNodes.forEach(item => {
+            item.classList.toggle('is-active', item === node);
+            item.setAttribute('aria-pressed', String(item === selectedNode));
+        });
+        researchLinks.forEach(link => link.classList.toggle('is-active', link.dataset.link === node?.dataset.research));
+        detailLabel.textContent = node ? node.querySelector('.research-node-name').textContent : 'EXPLORE THE CONSTELLATION';
+        detailText.textContent = node ? node.dataset.detail : 'Select a focus to explore its technologies and research interests.';
+    }
+    researchNodes.forEach(node => {
+        node.addEventListener('pointerenter', event => {
+            if (event.pointerType !== 'touch') showResearch(node);
+        });
+        node.addEventListener('pointerleave', () => showResearch(researchNodes.includes(document.activeElement) ? document.activeElement : selectedNode));
+        node.addEventListener('focus', () => showResearch(node));
+        node.addEventListener('blur', () => showResearch(selectedNode));
+        node.addEventListener('click', () => {
+            selectedNode = selectedNode === node ? null : node;
+            showResearch(selectedNode);
+        });
+        node.addEventListener('keydown', event => {
+            if (event.key === 'Escape') { selectedNode = null; showResearch(null); }
+        });
+    });
+}

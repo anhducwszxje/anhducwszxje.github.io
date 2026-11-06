@@ -140,24 +140,50 @@ h1 em, h2 em { color: var(--orange); font-style: normal; }
 .console-bar i:first-child { background: var(--orange); }
 .console-status { justify-self: end; color: var(--cyan); }
 .console-status::before { content: ""; display: inline-block; width: 5px; height: 5px; margin-right: 6px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 8px var(--cyan); }
-.console-body { position: relative; height: 390px; overflow: hidden; }
-.console-body::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, transparent 0, transparent 3px, rgba(255,255,255,.01) 4px); pointer-events: none; }
-.console-links { position: absolute; inset: 0; width: 100%; height: 100%; fill: var(--orange); }
-.console-links path { fill: none; stroke: rgba(85,217,220,.32); stroke-width: 1; stroke-dasharray: 5 7; animation: dash 16s linear infinite; }
-@keyframes dash { to { stroke-dashoffset: -150; } }
-.signal-ring { position: absolute; left: 50%; top: 50%; border: 1px solid rgba(85,217,220,.09); border-radius: 50%; transform: translate(-50%,-50%); }
-.ring-one { width: 210px; height: 210px; animation: breathe 3.5s ease-in-out infinite; }
-.ring-two { width: 330px; height: 330px; border-style: dashed; animation: slowSpin 45s linear infinite; }
-@keyframes breathe { 50% { opacity: .35; transform: translate(-50%,-50%) scale(1.08); } }
-@keyframes slowSpin { to { transform: translate(-50%,-50%) rotate(360deg); } }
-.focus-node { position: absolute; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 5px; color: var(--cyan); font-family: monospace; font-size: .58rem; letter-spacing: .08em; }
-.focus-node i { width: 45px; height: 45px; display: grid; place-items: center; border: 1px solid rgba(85,217,220,.4); border-radius: 50%; background: #0b1a26; box-shadow: 0 0 25px rgba(85,217,220,.08); font-size: .95rem; }
-.focus-core { left: 50%; top: 50%; transform: translate(-50%,-50%); color: var(--orange); }
-.focus-core i { width: 65px; height: 65px; border-color: rgba(155,109,255,.65); color: var(--orange); box-shadow: 0 0 35px rgba(155,109,255,.24); font-size: 1.25rem; animation: corePulse 2.6s ease-in-out infinite; }
-@keyframes corePulse { 50% { box-shadow: 0 0 55px rgba(155,109,255,.42); } }
-.node-cloud { left: 11%; top: 13%; }.node-network { right: 9%; top: 17%; }.node-cv { left: 14%; bottom: 11%; }.node-rl { right: 12%; bottom: 12%; }
-.console-footer { min-height: 54px; display: flex; align-items: center; justify-content: space-around; border-top: 1px solid var(--line-dark); color: #667b89; font-family: monospace; font-size: .55rem; letter-spacing: .08em; }
-.console-footer b { margin-right: 5px; color: var(--orange); }
+.constellation { position: relative; height: 400px; isolation: isolate; background: radial-gradient(ellipse at 50% 52%, rgba(85,217,220,.07), transparent 60%), radial-gradient(ellipse at 80% 85%, rgba(155,109,255,.06), transparent 50%); }
+.map-caption { position: absolute; top: 18px; left: 20px; color: #718798; font: .52rem monospace; letter-spacing: .12em; }
+.constellation-links { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.research-link { fill: none; stroke: url(#research-link); stroke-width: 1.2; opacity: .45; transition: opacity .3s, stroke-width .3s; }
+.constellation.is-exploring .research-link { opacity: .12; }
+.constellation.is-exploring .research-link.is-active { opacity: .95; stroke-width: 1.8; }
+.map-crosslink { fill: none; stroke: #7391a7; stroke-width: .7; stroke-dasharray: 2 7; opacity: .2; }
+.map-datapoints { fill: #8db4c8; opacity: .6; }
+.map-particle { fill: #a2f5f4; }
+.research-hub { position: absolute; left: 50%; top: 51.25%; transform: translate(-50%,-50%); width: 110px; height: 92px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; border: 1px solid rgba(155,109,255,.5); border-radius: 22px; background: #101c30; color: #c2b1ef; box-shadow: 0 0 28px rgba(155,109,255,.09); animation: research-breathe 8s ease-in-out infinite; }
+.research-hub i { font-size: 1.25rem; color: var(--cyan); }
+.research-hub span { text-align: center; font: .59rem/1.5 monospace; letter-spacing: .06em; }
+@keyframes research-breathe { 50% { box-shadow: 0 0 32px rgba(155,109,255,.19); border-color: rgba(155,109,255,.75); } }
+.research-node { position: absolute; z-index: 1; width: 155px; min-height: 90px; padding: 13px 12px; text-align: left; border: 1px solid rgba(117,157,182,.22); border-radius: 12px; background: linear-gradient(135deg, #102333, #0b1725); color: #e0ebf3; cursor: pointer; transform: translate(-50%,-50%); transition: transform .3s, border-color .3s, box-shadow .3s; }
+.research-node-cloud { left: 29%; top: 20%; width: 158px; }
+.research-node-network { left: 77%; top: 35%; }
+.research-node-rl { left: 62%; top: 78.75%; width: 184px; }
+.research-node-vision { left: 22%; top: 67.5%; width: 145px; }
+.research-node-icon { display: block; color: var(--cyan); margin-bottom: 9px; font-size: 1rem; }
+.research-node-rl .research-node-icon, .research-node-vision .research-node-icon { color: #b7a0f5; }
+.research-node-name { display: block; font: 600 .75rem/1.4 var(--font-body, sans-serif); }
+.research-node-tags { display: block; margin-top: 6px; color: #8ba5b9; font: .56rem/1.5 monospace; }
+.research-node-index { position: absolute; top: 13px; right: 12px; color: #647c91; font: .55rem monospace; }
+.research-node.is-active { transform: translate(-50%,-50%) scale(1.035); border-color: rgba(85,217,220,.7); box-shadow: 0 0 24px rgba(85,217,220,.1); }
+.research-node:focus-visible { outline: 2px solid var(--cyan); outline-offset: 5px; }
+.research-detail { min-height: 100px; padding: 17px 20px; border-top: 1px solid var(--line-dark); background: rgba(5,13,23,.5); }
+.research-detail-label { display: block; color: var(--cyan); font: .57rem/1.5 monospace; letter-spacing: .1em; }
+.research-detail p { margin: 7px 0 0; color: #a1b2c5; font: .7rem/1.7 monospace; }
+@media (max-width: 620px) {
+    .console-bar { padding-inline: 10px; font-size: .52rem; letter-spacing: 0; }
+    .console-bar > span:first-child { gap: 3px; }
+    .console-bar i { width: 4px; height: 4px; }
+    .console-status::before { margin-right: 4px; }
+    .constellation { height: auto; padding: 22px 14px 20px; display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 12px; }
+    .map-caption, .constellation-links { display: none; }
+    .research-hub { position: relative; inset: auto; transform: none; grid-column: 1 / -1; width: 150px; height: 80px; margin: 0 auto 10px; }
+    .research-hub::after { content: ''; position: absolute; height: 21px; width: 1px; top: 100%; background: linear-gradient(#9b6dff, #55d9dc); }
+    .research-node { position: relative; inset: auto; transform: none; width: 100%; min-height: 114px; padding: 12px 10px; }
+    .research-node.is-active { transform: scale(1.02); }
+    .research-node-name { font-size: .72rem; }
+    .research-node-tags { font-size: .54rem; }
+    .research-detail { min-height: 118px; padding: 15px; }
+}
+@media (prefers-reduced-motion: reduce) { .research-hub { animation: none; } .map-particle { display: none; } }
 
 .hero-rail { position: absolute; z-index: 2; left: 0; bottom: 0; width: 100%; min-height: 48px; display: flex; align-items: center; justify-content: center; gap: 28px; padding: 10px 250px 10px 24px; border-top: 1px solid var(--line-dark); color: #8b98ad; background: rgba(2,3,10,.74); font-size: .62rem; font-weight: 600; letter-spacing: .13em; text-transform: uppercase; }
 .hero-rail i { width: 4px; height: 4px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 8px var(--orange); }
@@ -303,10 +329,6 @@ h1 em, h2 em { color: var(--orange); font-style: normal; }
     .role-line { flex-wrap: wrap; }
     .hero-description { font-size: .91rem; }
     .hero-actions, .hero-actions .btn { width: 100%; }
-    .console-body { height: 320px; }
-    .console-links { transform: scaleY(.82); transform-origin: center; }
-    .ring-two { width: 275px; height: 275px; }
-    .node-cloud { left: 7%; }.node-network { right: 4%; }.node-cv { left: 8%; }.node-rl { right: 6%; }
     .section-heading h2 { font-size: 2.65rem; }
     .research-grid, .toolkit-grid, .highlights-grid { grid-template-columns: 1fr; }
     .research-card, .research-card:last-child { grid-column: auto; min-height: 370px; }
