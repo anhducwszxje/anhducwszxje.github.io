@@ -302,10 +302,8 @@ if (constellation) {
     const hub = constellation.querySelector('.research-hub');
     const seeds = [[.25,.25,35,24],[.77,.3,-29,38],[.73,.76,-38,-25],[.23,.72,32,-36]];
     const bodies = researchNodes.map((element, i) => ({ element, x: 0, y: 0, vx: seeds[i][2], vy: seeds[i][3], radius: 0 }));
-    const sparks = bodies.map(() => {
-        const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-        dot.setAttribute('r', '2'); dot.setAttribute('fill', '#a6e9ee'); svg.append(dot); return dot;
-    });
+    const sparks = [];
+    const emissionTimers = bodies.map((_, i) => i * .35);
     let width = 0, height = 0, visible = false, frame = 0, lastTime = 0;
     function resizeMap() {
         width = constellation.clientWidth; height = constellation.clientHeight;
@@ -346,33 +344,52 @@ if (constellation) {
             if (body.y > maxY) { body.y = maxY; body.vy = -Math.abs(body.vy); }
         });
     }
-    function drawMap(time) {
+    function drawMap(dt) {
         bodies.forEach((body, i) => {
             body.element.style.left = body.x + 'px'; body.element.style.top = body.y + 'px';
-            const cx = width / 2, cy = height * .51, dx = body.x - cx, dy = body.y - cy;
-            const distance = Math.hypot(dx, dy) || 1, nx = dx / distance, ny = dy / distance;
-            const start = hub.offsetWidth / 2 + 3, finish = distance - body.radius - 4;
-            const ax = cx + nx * start, ay = cy + ny * start, bx = cx + nx * finish, by = cy + ny * finish;
-            const qx = (ax + bx) / 2 - ny * 9, qy = (ay + by) / 2 + nx * 9;
-            researchLinks[i].setAttribute('d', 'M'+ax+' '+ay+' Q'+qx+' '+qy+' '+bx+' '+by);
-            const t = motionPreference.matches ? .5 : (time / 14000 + i * .24) % 1, u = 1 - t;
-            sparks[i].setAttribute('cx', u*u*ax + 2*u*t*qx + t*t*bx);
-            sparks[i].setAttribute('cy', u*u*ay + 2*u*t*qy + t*t*by);
+            const cx = width / 2, cy = height * .51;
+            // Continue underneath the circles so particles emerge and enter naturally.
+            researchLinks[i].setAttribute('d', 'M'+cx+' '+cy+' L'+body.x+' '+body.y);
+            if (!motionPreference.matches && dt > 0) {
+                emissionTimers[i] -= dt;
+                if (emissionTimers[i] <= 0) {
+                    emissionTimers[i] += 1.6;
+                    const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                    dot.setAttribute('r', '2.4');
+                    dot.setAttribute('fill', '#a6e9ee');
+                    dot.setAttribute('pointer-events', 'none');
+                    svg.append(dot);
+                    sparks.push({ dot, body, progress: 0 });
+                }
+            }
         });
+        for (let i = sparks.length - 1; i >= 0; i--) {
+            const spark = sparks[i];
+            const cx = width / 2, cy = height * .51;
+            const dx = spark.body.x - cx, dy = spark.body.y - cy;
+            spark.progress += 85 * dt / Math.max(Math.hypot(dx, dy), 1);
+            if (spark.progress >= 1 || motionPreference.matches) {
+                spark.dot.remove();
+                sparks.splice(i, 1);
+                continue;
+            }
+            spark.dot.setAttribute('cx', cx + dx * spark.progress);
+            spark.dot.setAttribute('cy', cy + dy * spark.progress);
+        }
     }
     function tick(time) {
         frame = 0;
         const dt = Math.min((time - lastTime) / 1000, .04); lastTime = time;
         bodies.forEach(body => { body.x += body.vx * dt; body.y += body.vy * dt; });
         for (let i = 0; i < 3; i++) resolveCollisions();
-        drawMap(time); scheduleMotion();
+        drawMap(dt); scheduleMotion();
     }
     function scheduleMotion() {
         const stopped = motionPreference.matches || !visible || document.hidden;
         if (stopped) { cancelAnimationFrame(frame); frame = 0; }
         else if (!frame) { lastTime = performance.now(); frame = requestAnimationFrame(tick); }
     }
-    motionPreference.addEventListener('change', scheduleMotion);
+    motionPreference.addEventListener('change', () => { drawMap(0); scheduleMotion(); });
     document.addEventListener('visibilitychange', scheduleMotion);
     new ResizeObserver(resizeMap).observe(constellation);
     new IntersectionObserver(entries => { visible = entries[0].isIntersecting; scheduleMotion(); }).observe(constellation);
