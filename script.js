@@ -267,13 +267,14 @@ function createNetwork(canvas, options = {}) {
         if (!reducedMotion) animationFrame = requestAnimationFrame(draw);
     }
 
-    host.addEventListener('pointermove', event => {
+    const pointerHost = options.global ? window : host;
+    pointerHost.addEventListener('pointermove', event => {
         const rect = host.getBoundingClientRect();
         pointer.x = event.clientX - rect.left;
         pointer.y = event.clientY - rect.top;
         pointer.active = true;
     }, { passive: true });
-    host.addEventListener('pointerleave', () => { pointer.active = false; });
+    pointerHost.addEventListener('pointerleave', () => { pointer.active = false; });
 
     window.addEventListener('resize', () => {
         window.clearTimeout(resizeTimer);
@@ -293,8 +294,7 @@ function createNetwork(canvas, options = {}) {
     if (!reducedMotion) animationFrame = requestAnimationFrame(draw);
 }
 
-createNetwork(document.getElementById('networkCanvas'), { density: 8, minNodes: 240, mobileMinNodes: 72, maxNodes: 240, speed: .9, opacity: .34 });
-createNetwork(document.getElementById('contactNetwork'), { density: 18, minNodes: 82, mobileMinNodes: 42, maxNodes: 100, speed: .4, opacity: .22 });
+createNetwork(document.getElementById('networkCanvas'), { global: true, density: 8, minNodes: 240, mobileMinNodes: 72, maxNodes: 240, speed: .9, opacity: .34 });
 
 // Highlight filters
 const filterButtons = document.querySelectorAll('.filter-btn');
