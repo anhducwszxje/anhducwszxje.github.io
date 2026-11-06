@@ -289,4 +289,99 @@ if (constellation) {
             if (event.key === 'Escape') { selectedNode = null; showResearch(null); }
         });
     });
+    // Four light bodies bounce off one another, the hub, and the map boundary.
+    const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const motionButton = constellation.querySelector('.map-motion');
+    const svg = constellation.querySelector('svg');
+    const hub = constellation.querySelector('.research-hub');
+    const seeds = [[.25,.25,14,9],[.77,.3,-11,14],[.73,.76,-13,-9],[.23,.72,12,-13]];
+    const bodies = researchNodes.map((element, i) => ({ element, x: 0, y: 0, vx: seeds[i][2], vy: seeds[i][3], radius: 0 }));
+    const sparks = bodies.map(() => {
+        const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        dot.setAttribute('r', '2'); dot.setAttribute('fill', '#a6e9ee'); svg.append(dot); return dot;
+    });
+    let width = 0, height = 0, paused = false, hovered = false, visible = false, frame = 0, lastTime = 0;
+    function resizeMap() {
+        width = constellation.clientWidth; height = constellation.clientHeight;
+        svg.setAttribute('viewBox', '0 0 ' + width + ' ' + height);
+        bodies.forEach((body, i) => {
+            body.radius = body.element.offsetWidth / 2;
+            body.x = seeds[i][0] * width; body.y = seeds[i][1] * height;
+        });
+        // Resolve the initial arrangement even when motion is disabled.
+        for (let i = 0; i < 40; i++) resolveCollisions();
+        drawMap(0);
+    }
+    function resolveCollisions() {
+        const obstacles = [...bodies, { x: width / 2, y: height * .51, radius: hub.offsetWidth / 2, fixed: true }];
+        bodies.forEach((body, i) => {
+            for (let j = i + 1; j < obstacles.length; j++) {
+                const other = obstacles[j], dx = other.x - body.x, dy = other.y - body.y;
+                const distance = Math.hypot(dx, dy) || 1;
+                const gap = body.radius + other.radius + 22;
+                if (distance >= gap) continue;
+                const nx = dx / distance, ny = dy / distance, shift = (gap - distance) / (other.fixed ? 1 : 2);
+                body.x -= nx * shift; body.y -= ny * shift;
+                if (!other.fixed) { other.x += nx * shift; other.y += ny * shift; }
+                const speed = (body.vx - (other.vx || 0)) * nx + (body.vy - (other.vy || 0)) * ny;
+                if (speed > 0) {
+                    body.vx -= (other.fixed ? 2 : 1) * speed * nx;
+                    body.vy -= (other.fixed ? 2 : 1) * speed * ny;
+                    if (!other.fixed) { other.vx += speed * nx; other.vy += speed * ny; }
+                }
+            }
+        });
+        bodies.forEach(body => {
+            const minX = body.radius + 12, maxX = width - body.radius - 12;
+            const minY = body.radius + 43, maxY = height - body.radius - 35;
+            if (body.x < minX) { body.x = minX; body.vx = Math.abs(body.vx); }
+            if (body.x > maxX) { body.x = maxX; body.vx = -Math.abs(body.vx); }
+            if (body.y < minY) { body.y = minY; body.vy = Math.abs(body.vy); }
+            if (body.y > maxY) { body.y = maxY; body.vy = -Math.abs(body.vy); }
+        });
+    }
+    function drawMap(time) {
+        bodies.forEach((body, i) => {
+            body.element.style.left = body.x + 'px'; body.element.style.top = body.y + 'px';
+            const cx = width / 2, cy = height * .51, dx = body.x - cx, dy = body.y - cy;
+            const distance = Math.hypot(dx, dy) || 1, nx = dx / distance, ny = dy / distance;
+            const start = hub.offsetWidth / 2 + 3, finish = distance - body.radius - 4;
+            const ax = cx + nx * start, ay = cy + ny * start, bx = cx + nx * finish, by = cy + ny * finish;
+            const qx = (ax + bx) / 2 - ny * 9, qy = (ay + by) / 2 + nx * 9;
+            researchLinks[i].setAttribute('d', 'M'+ax+' '+ay+' Q'+qx+' '+qy+' '+bx+' '+by);
+            const t = motionPreference.matches ? .5 : (time / 14000 + i * .24) % 1, u = 1 - t;
+            sparks[i].setAttribute('cx', u*u*ax + 2*u*t*qx + t*t*bx);
+            sparks[i].setAttribute('cy', u*u*ay + 2*u*t*qy + t*t*by);
+        });
+    }
+    function tick(time) {
+        frame = 0;
+        const dt = Math.min((time - lastTime) / 1000, .04); lastTime = time;
+        bodies.forEach(body => { body.x += body.vx * dt; body.y += body.vy * dt; });
+        for (let i = 0; i < 3; i++) resolveCollisions();
+        drawMap(time); scheduleMotion();
+    }
+    function scheduleMotion() {
+        const stopped = paused || hovered || constellation.contains(document.activeElement) && document.activeElement !== motionButton || motionPreference.matches || !visible || document.hidden;
+        if (stopped) { cancelAnimationFrame(frame); frame = 0; }
+        else if (!frame) { lastTime = performance.now(); frame = requestAnimationFrame(tick); }
+    }
+    motionButton.addEventListener('click', () => {
+        paused = !paused;
+        motionButton.setAttribute('aria-pressed', String(paused));
+        motionButton.textContent = paused ? 'Resume motion' : 'Pause motion';
+        motionButton.setAttribute('aria-label', paused ? 'Resume research map motion' : 'Pause research map motion');
+        scheduleMotion();
+    });
+    researchNodes.forEach(node => {
+        node.addEventListener('pointerenter', event => { if (event.pointerType !== 'touch') { hovered = true; scheduleMotion(); } });
+        node.addEventListener('pointerleave', () => { hovered = false; scheduleMotion(); });
+    });
+    constellation.addEventListener('focusin', scheduleMotion);
+    constellation.addEventListener('focusout', () => queueMicrotask(scheduleMotion));
+    motionPreference.addEventListener('change', scheduleMotion);
+    document.addEventListener('visibilitychange', scheduleMotion);
+    new ResizeObserver(resizeMap).observe(constellation);
+    new IntersectionObserver(entries => { visible = entries[0].isIntersecting; scheduleMotion(); }).observe(constellation);
+
 }
