@@ -144,19 +144,18 @@ h1 em, h2 em { color: var(--orange); font-style: normal; }
 .research-console::before { display: none; }
 .constellation { position: relative; height: 440px; isolation: isolate; background: radial-gradient(ellipse at center, rgba(85,217,220,.065), transparent 65%); }
 .map-caption { position: absolute; top: 18px; left: 20px; color: #718798; font: .5rem monospace; letter-spacing: .07em; }
-.map-motion { position: absolute; z-index: 3; right: 16px; bottom: 10px; padding: 5px 10px; border: 1px solid #294250; border-radius: 30px; background: #0b1925; color: #9eb9cb; font: .55rem monospace; cursor: pointer; }
 .constellation-links { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 .research-link { fill: none; stroke: url(#research-link); stroke-width: 1.4; opacity: .65; transition: opacity .25s, stroke-width .25s; }
 .constellation.is-exploring .research-link { opacity: .3; }
 .constellation.is-exploring .research-link.is-active { opacity: 1; stroke-width: 2; }
-.research-hub { position: absolute; left: 50%; top: 51%; width: 86px; height: 86px; transform: translate(-50%,-50%); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 7px; border: 1px solid #8c72be; border-radius: 50%; background: radial-gradient(circle at 35% 25%, #29334c, #101a2e 75%); color: #cbbbea; box-shadow: 0 0 35px #9b6dff16; animation: research-breathe 7s ease-in-out infinite; }
+.research-hub { position: absolute; left: 50%; top: 51%; width: 78px; height: 78px; transform: translate(-50%,-50%); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 7px; border: 1px solid #8c72be; border-radius: 50%; background: radial-gradient(circle at 35% 25%, #29334c, #101a2e 75%); color: #cbbbea; box-shadow: 0 0 35px #9b6dff16; animation: research-breathe 7s ease-in-out infinite; }
 .research-hub i { color: var(--cyan); font-size: 1.2rem; }
 .research-hub span { text-align: center; font: .48rem/1.5 monospace; letter-spacing: .02em; }
 @keyframes research-breathe { 50% { box-shadow: 0 0 45px #9b6dff30; } }
-.research-node { --node-size: 112px; position: absolute; z-index: 2; left: 25%; top: 25%; width: var(--node-size); height: var(--node-size); padding: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; border: 1px solid #55d9dc50; border-radius: 50%; background: radial-gradient(circle at 30% 20%, #1a3947, #0b1b2a 75%); box-shadow: inset 0 1px 12px #55d9dc0b, 0 8px 25px #0003; color: #e0ebf3; cursor: pointer; transform: translate(-50%,-50%); transition: border-color .25s, box-shadow .25s; }
-.research-node-network { left: 77%; top: 30%; --node-size: 118px; }
-.research-node-rl { left: 73%; top: 76%; --node-size: 124px; }
-.research-node-vision { left: 23%; top: 72%; --node-size: 102px; }
+.research-node { --node-size: 94px; position: absolute; z-index: 2; left: 25%; top: 25%; width: var(--node-size); height: var(--node-size); padding: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; border: 1px solid #55d9dc50; border-radius: 50%; background: radial-gradient(circle at 30% 20%, #1a3947, #0b1b2a 75%); box-shadow: inset 0 1px 12px #55d9dc0b, 0 8px 25px #0003; color: #e0ebf3; cursor: pointer; transform: translate(-50%,-50%); transition: border-color .25s, box-shadow .25s; }
+.research-node-network { left: 77%; top: 30%; --node-size: 100px; }
+.research-node-rl { left: 73%; top: 76%; --node-size: 108px; }
+.research-node-vision { left: 23%; top: 72%; --node-size: 88px; }
 .research-node-rl, .research-node-vision { border-color: #ac8de65c; background: radial-gradient(circle at 30% 20%, #2a304e, #101b2c 75%); }
 .research-node-icon { display: block; color: var(--cyan); margin-bottom: 7px; font-size: 1.2rem; transition: transform .25s; }
 .research-node-rl .research-node-icon, .research-node-vision .research-node-icon { color: #b7a0f5; }
@@ -165,7 +164,7 @@ h1 em, h2 em { color: var(--orange); font-style: normal; }
 .research-node-index { display: none; }
 .research-node.is-active { border-color: #8ee9ee; box-shadow: 0 0 28px #55d9dc26, inset 0 0 20px #55d9dc0d; }
 .research-node.is-active .research-node-icon { transform: scale(1.14); }
-.research-node:focus-visible, .map-motion:focus-visible { outline: 2px solid var(--cyan); outline-offset: 5px; }
+.research-node:focus-visible { outline: 2px solid var(--cyan); outline-offset: 5px; }
 .research-detail { min-height: 112px; padding: 17px 22px; border-top: 1px solid var(--line-dark); background: rgba(5,13,23,.5); }
 .research-detail-label { display: block; color: var(--cyan); font: .57rem/1.5 monospace; letter-spacing: .1em; }
 .research-detail p { margin: 7px 0 0; color: #a1b2c5; font: .7rem/1.7 monospace; }
@@ -176,16 +175,16 @@ h1 em, h2 em { color: var(--orange); font-style: normal; }
     .console-status::before { margin-right: 4px; }
     .constellation { height: 390px; }
     .map-caption { left: 14px; font-size: .44rem; }
-    .research-node { --node-size: 88px; padding: 7px; }
-    .research-node-rl { --node-size: 100px; }
+    .research-node { --node-size: 76px; padding: 6px; }
+    .research-node-rl { --node-size: 88px; }
     .research-node-name { font-size: .61rem; }
     .research-node-tags { font-size: .42rem; }
     .research-node-icon { font-size: 1rem; margin-bottom: 5px; }
-    .research-hub { width: 72px; height: 72px; }
+    .research-hub { width: 64px; height: 64px; }
     .research-hub span { font-size: .41rem; }
     .research-detail { min-height: 130px; padding: 15px; }
 }
-@media (prefers-reduced-motion: reduce) { .research-hub { animation: none; } .map-motion { display: none; } }
+@media (prefers-reduced-motion: reduce) { .research-hub { animation: none; } }
 
 .hero-rail { position: absolute; z-index: 2; left: 0; bottom: 0; width: 100%; min-height: 48px; display: flex; align-items: center; justify-content: center; gap: 28px; padding: 10px 250px 10px 24px; border-top: 1px solid var(--line-dark); color: #8b98ad; background: rgba(2,3,10,.74); font-size: .62rem; font-weight: 600; letter-spacing: .13em; text-transform: uppercase; }
 .hero-rail i { width: 4px; height: 4px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 8px var(--orange); }
