@@ -1,5 +1,64 @@
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+// Optional recording tour: frame each section, then return directly to the hero.
+if (new URLSearchParams(window.location.search).get('autoscroll') === '1' && !reducedMotion) {
+    window.addEventListener('load', () => {
+        let frame = 0;
+        function recordingStops() {
+            const topInset = 84;
+            const frameHeight = Math.max(200, window.innerHeight - topInset - 24);
+            const bottom = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+            const sections = [...document.querySelectorAll('main section[id]')];
+            const starts = sections.map(section => Math.max(0, section.getBoundingClientRect().top + window.scrollY - topInset));
+            const stops = [0];
+            starts.forEach((start, i) => {
+                if (start > 0) stops.push(Math.min(start, bottom));
+                const end = Math.min(starts[i + 1] ?? bottom, bottom);
+                for (let position = start + frameHeight; position < end - 100; position += frameHeight) {
+                    stops.push(Math.min(position, bottom));
+                }
+            });
+            stops.push(bottom);
+            return [...new Set(stops)].sort((a, b) => a - b);
+        }
+        function scrollFrame(target) {
+            cancelAnimationFrame(frame);
+            const start = window.scrollY;
+            const began = performance.now();
+            function animate(now) {
+                const progress = Math.min((now - began) / 1400, 1);
+                const ease = progress * progress * (3 - 2 * progress);
+                window.scrollTo({ top: start + (target - start) * ease, behavior: 'instant' });
+                if (progress < 1) frame = requestAnimationFrame(animate);
+                else tour = window.setTimeout(advance, 5500);
+            }
+            frame = requestAnimationFrame(animate);
+        }
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        function advance() {
+            if (document.hidden) {
+                tour = window.setTimeout(advance, 5500);
+                return;
+            }
+            const next = recordingStops().find(position => position > window.scrollY + 8);
+            if (next === undefined) {
+                cancelAnimationFrame(frame);
+                window.scrollTo({ top: 0, behavior: 'instant' });
+                tour = window.setTimeout(advance, 5500);
+            } else {
+                scrollFrame(next);
+            }
+        }
+        let tour = window.setTimeout(advance, 5500);
+        window.addEventListener('keydown', event => {
+            if (event.key === 'Escape') {
+                clearTimeout(tour);
+                cancelAnimationFrame(frame);
+            }
+        });
+    });
+}
+
 // Loader
 const loader = document.querySelector('.loader');
 window.addEventListener('load', () => {
